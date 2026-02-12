@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PND</string>
+    <string name="label_android_id">Android ID</string>
+    <string name="label_serialno">Serial No (ro.serialno)</string>
+    <string name="label_ap_serial">AP Serial (ro.boot.ap_serial)</string>
+    <string name="label_bluetooth">Bluetooth ünvanı</string>
+    <string name="label_imei">IMEI (iphonesubinfo)</string>
+    <string name="label_ril_model">RIL Model ID</string>
+    <string name="request_root">Magiskdən root icazəsi al</string>
+    <string name="change_all">Hamısını dəyişdir</string>
+    <string name="id_changed">Hamısı dəyişdirildi. Cihaz yenidən başladılır…</string>
+    <string name="error_root">Root icazəsi yoxdur və ya əmr uğursuz.</string>
+    <string name="log_title">Log (əvvəlki / yeni)</string>
+    <string name="root_granted">Root icazəsi verildi.</string>
+    <string name="root_request_failed">Root icazəsi verilmədi.</string>
+    <string name="refreshing">Yenilənir…</string>
+    <string name="unknown">—</string>
+    <string name="version">Versiya %1$s (build %2$d)</string>
+    <string name="update_available">Yeni versiya %1$s mövcuddur</string>
+    <string name="download_update">Endir və quraşdır</string>
+    <string name="checking_update">Yeniləmə yoxlanılır…</string>
+    <string name="update_check_failed">Yeniləmə yoxlanılmadı.</string>
+    <string name="downloading">Endirilir…</string>
+    <string name="download_failed">Endirmə uğursuz.</string>
+    <string name="install_apk">APK-nı quraşdırın</string>
+</resources>
