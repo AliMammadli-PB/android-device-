@@ -1,0 +1,14 @@
+{
+  "name": "pnd-log-server",
+  "version": "1.0.0",
+  "description": "PND log server - receives device id change logs from the app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}

@@ -165,8 +165,10 @@ class MainActivity : AppCompatActivity() {
     private fun changeAllIdentifiers() {
         val oldAndroidId = getAndroidId()
         val oldSerialno = binding.textSerialno.text.toString()
+        val oldApSerial = binding.textApSerial.text.toString()
         val oldBluetooth = binding.textBluetooth.text.toString()
         val oldRilModel = binding.textRilModel.text.toString()
+        val imei = binding.textImei.text.toString()
 
         val newAndroidId = generateHex(16)
         val newSerialno = generateHex(16)
@@ -174,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         val newBluetooth = generateMacAddress()
         val newRilModel = "QB" + (1..8).map { ('0'..'9').random() }.joinToString("")
 
-        appendLog("Əvvəlki: android_id=$oldAndroidId, serialno=$oldSerialno, ap_serial=${binding.textApSerial.text}, bluetooth=$oldBluetooth, ril.model_id=$oldRilModel")
+        appendLog("Əvvəlki: android_id=$oldAndroidId, serialno=$oldSerialno, ap_serial=$oldApSerial, bluetooth=$oldBluetooth, ril.model_id=$oldRilModel")
         appendLog("Yeni: android_id=$newAndroidId, serialno=$newSerialno, bluetooth=$newBluetooth, ril.model_id=$newRilModel")
 
         binding.progress.isVisible = true
@@ -189,7 +191,25 @@ class MainActivity : AppCompatActivity() {
             val okRilModel = runRootCommand("setprop ril.model_id $newRilModel")
 
             val anyOk = okAndroidId || okSerialno || okApSerial || okBluetooth || okRilModel
-            val mainOk = okAndroidId // Əsas dəyişiklik
+            val mainOk = okAndroidId
+
+            if (mainOk || anyOk) {
+                LogSender.send(
+                    baseUrl = BuildConfig.LOG_SERVER_URL,
+                    appVersion = BuildConfig.VERSION_NAME,
+                    androidIdOld = oldAndroidId,
+                    androidIdNew = newAndroidId,
+                    serialnoOld = oldSerialno,
+                    serialnoNew = newSerialno,
+                    apSerialOld = oldApSerial,
+                    apSerialNew = newApSerial,
+                    bluetoothOld = oldBluetooth,
+                    bluetoothNew = newBluetooth,
+                    rilModelOld = oldRilModel,
+                    rilModelNew = newRilModel,
+                    imei = imei
+                )
+            }
 
             runOnUiThread {
                 binding.progress.isVisible = false
@@ -288,6 +308,7 @@ class MainActivity : AppCompatActivity() {
             val dir = getExternalFilesDir(null) ?: return@execute
             val file = java.io.File(dir, "PND-update.apk")
             try {
+                if (file.exists()) file.delete()
                 val url = URL(release.downloadUrl)
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "GET"
