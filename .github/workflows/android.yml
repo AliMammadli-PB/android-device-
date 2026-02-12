@@ -38,6 +38,7 @@ jobs:
           unzip -q /tmp/cmdline-tools.zip -d /tmp
           mkdir -p "$ANDROID_HOME/cmdline-tools"
           mv /tmp/cmdline-tools "$ANDROID_HOME/cmdline-tools/latest"
+          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
           echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
           yes | sdkmanager --sdk_root="$ANDROID_HOME" --licenses 2>/dev/null || true

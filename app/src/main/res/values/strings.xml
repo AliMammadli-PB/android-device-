@@ -24,4 +24,9 @@
     <string name="downloading">Endirilir…</string>
     <string name="download_failed">Endirmə uğursuz.</string>
     <string name="install_apk">APK-nı quraşdırın</string>
+    <string name="log_server_label">Log server (Node.js) — kompüterin IP:port</string>
+    <string name="log_server_hint">http://192.168.1.5:3000</string>
+    <string name="log_server_save">Saxla</string>
+    <string name="log_sent_ok">Log servera göndərildi</string>
+    <string name="log_sent_fail">Log göndərilmədi (URL yoxla və ya server işləsin)</string>
 </resources>

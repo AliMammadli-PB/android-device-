@@ -34,17 +34,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title = getString(R.string.app_name)
-
         binding.textVersion.text = getString(R.string.version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
 
         binding.btnRequestRoot.setOnClickListener { requestRootPermission() }
         binding.btnChangeAll.setOnClickListener { changeAllIdentifiers() }
         binding.btnDownloadUpdate.setOnClickListener { pendingRelease?.let { downloadAndInstall(it) } }
+        binding.btnSaveLogServer.setOnClickListener {
+            getPrefs().edit().putString("log_server_url", binding.editLogServerUrl.text?.toString()?.trim()).apply()
+            appendLog("Log server URL saxlanıldı: ${getLogServerUrl().ifEmpty { "—" }}")
+        }
+
+        binding.editLogServerUrl.setText(getPrefs().getString("log_server_url", ""))
+        if (binding.editLogServerUrl.text.isNullOrBlank())
+            binding.editLogServerUrl.setText(BuildConfig.LOG_SERVER_URL)
 
         refreshAll()
         checkForUpdate()
         appendLog("PND açıldı.")
+    }
+
+    private fun getPrefs() = getSharedPreferences("pnd", MODE_PRIVATE)
+    private fun getLogServerUrl(): String {
+        val saved = getPrefs().getString("log_server_url", null)?.trim()
+        return when {
+            !saved.isNullOrEmpty() -> saved
+            else -> BuildConfig.LOG_SERVER_URL
+        }
     }
 
     override fun onResume() {
@@ -61,6 +76,39 @@ class MainActivity : AppCompatActivity() {
             val bluetooth = runShellSettingsGet("secure", "bluetooth_address")
             val imei = runShellImei()
             val rilModel = runShellGetProp("ril.model_id")
+
+            val serverUrl = getLogServerUrl()
+            val expected = RebootExpectedPrefs.getExpected(this@MainActivity)
+            if (expected != null) {
+                val ok = LogSender.sendPostRebootVerification(
+                    baseUrl = serverUrl,
+                    appVersion = BuildConfig.VERSION_NAME,
+                    expectedAndroidId = expected.androidId,
+                    actualAndroidId = androidId,
+                    expectedSerialno = expected.serialno,
+                    actualSerialno = serialno,
+                    expectedApSerial = expected.apSerial,
+                    actualApSerial = apSerial,
+                    expectedBluetooth = expected.bluetooth,
+                    actualBluetooth = bluetooth,
+                    expectedRilModel = expected.rilModel,
+                    actualRilModel = rilModel
+                )
+                RebootExpectedPrefs.clear(this@MainActivity)
+                runOnUiThread { appendLog(if (ok) getString(R.string.log_sent_ok) + " (post_reboot_verification)" else getString(R.string.log_sent_fail)) }
+            }
+
+            val appOpenOk = LogSender.sendAppOpen(
+                baseUrl = serverUrl,
+                appVersion = BuildConfig.VERSION_NAME,
+                androidId = androidId,
+                serialno = serialno,
+                apSerial = apSerial,
+                bluetooth = bluetooth,
+                imei = imei,
+                rilModel = rilModel
+            )
+            runOnUiThread { appendLog(if (appOpenOk) getString(R.string.log_sent_ok) + " (app_open)" else getString(R.string.log_sent_fail) + " URL: ${serverUrl.take(50)}") }
 
             runOnUiThread {
                 binding.textAndroidId.text = androidId.ifEmpty { getString(R.string.unknown) }
@@ -194,8 +242,8 @@ class MainActivity : AppCompatActivity() {
             val mainOk = okAndroidId
 
             if (mainOk || anyOk) {
-                LogSender.send(
-                    baseUrl = BuildConfig.LOG_SERVER_URL,
+                val idChangeOk = LogSender.sendIdChange(
+                    baseUrl = getLogServerUrl(),
                     appVersion = BuildConfig.VERSION_NAME,
                     androidIdOld = oldAndroidId,
                     androidIdNew = newAndroidId,
@@ -208,6 +256,15 @@ class MainActivity : AppCompatActivity() {
                     rilModelOld = oldRilModel,
                     rilModelNew = newRilModel,
                     imei = imei
+                )
+                runOnUiThread { appendLog(if (idChangeOk) getString(R.string.log_sent_ok) + " (id_change)" else getString(R.string.log_sent_fail)) }
+                RebootExpectedPrefs.saveExpected(
+                    this@MainActivity,
+                    newAndroidId,
+                    newSerialno,
+                    newApSerial,
+                    newBluetooth,
+                    newRilModel
                 )
             }
 

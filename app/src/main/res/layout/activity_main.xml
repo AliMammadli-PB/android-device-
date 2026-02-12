@@ -4,47 +4,96 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/surface"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="24sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:background="@color/version_badge_bg" />
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/textVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/log_server_label"
             android:textSize="12sp"
-            android:textColor="@color/primary_dark"
-            android:background="@color/version_badge_bg"
-            android:elevation="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/text_secondary" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+            <EditText
+                android:id="@+id/editLogServerUrl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/log_server_hint"
+                android:inputType="textUri"
+                android:padding="10dp"
+                android:background="@color/surface_card"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="12sp" />
+            <Button
+                android:id="@+id/btnSaveLogServer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/log_server_save"
+                style="?attr/materialButtonOutlinedStyle"
+                android:textColor="@color/primary" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/cardUpdate"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:visibility="gone"
             android:orientation="vertical"
             android:padding="14dp"
             android:background="@color/update_card_bg"
-            android:elevation="3dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textVersion">
+            android:elevation="3dp">
 
             <TextView
                 android:id="@+id/textUpdateInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:textColor="@color/text_primary"
                 android:text="@string/checking_update" />
 
             <Button
@@ -52,194 +101,182 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/download_update" />
+                android:text="@string/download_update"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/labelAndroidId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/label_android_id"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardUpdate" />
-
-        <TextView
-            android:id="@+id/textAndroidId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="monospace"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Cihaz ID-ləri"
             android:textSize="14sp"
-            android:padding="8dp"
-            android:background="@android:drawable/edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelAndroidId" />
+            android:textColor="@color/text_secondary"
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/labelSerialno"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@string/label_serialno"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textAndroidId" />
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@color/surface"
+            android:elevation="2dp">
 
-        <TextView
-            android:id="@+id/textSerialno"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="monospace"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:background="@android:drawable/edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelSerialno" />
+            <TextView
+                android:id="@+id/labelAndroidId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_android_id"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary" />
+            <TextView
+                android:id="@+id/textAndroidId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:background="@color/surface_card"
+                android:textColor="@color/text_primary" />
 
-        <TextView
-            android:id="@+id/labelApSerial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/label_ap_serial"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textSerialno" />
+            <TextView
+                android:id="@+id/labelSerialno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_serialno"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary" />
+            <TextView
+                android:id="@+id/textSerialno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:background="@color/surface_card"
+                android:textColor="@color/text_primary" />
 
-        <TextView
-            android:id="@+id/textApSerial"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="monospace"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:background="@android:drawable/edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelApSerial" />
+            <TextView
+                android:id="@+id/labelApSerial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_ap_serial"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary" />
+            <TextView
+                android:id="@+id/textApSerial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:background="@color/surface_card"
+                android:textColor="@color/text_primary" />
 
-        <TextView
-            android:id="@+id/labelBluetooth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/label_bluetooth"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textApSerial" />
+            <TextView
+                android:id="@+id/labelBluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_bluetooth"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary" />
+            <TextView
+                android:id="@+id/textBluetooth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:background="@color/surface_card"
+                android:textColor="@color/text_primary" />
 
-        <TextView
-            android:id="@+id/textBluetooth"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="monospace"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:background="@android:drawable/edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelBluetooth" />
+            <TextView
+                android:id="@+id/labelImei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_imei"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary" />
+            <TextView
+                android:id="@+id/textImei"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:background="@color/surface_card"
+                android:textColor="@color/text_primary" />
 
-        <TextView
-            android:id="@+id/labelImei"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/label_imei"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textBluetooth" />
+            <TextView
+                android:id="@+id/labelRilModel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_ril_model"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary" />
+            <TextView
+                android:id="@+id/textRilModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:background="@color/surface_card"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textImei"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="monospace"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:background="@android:drawable/edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelImei" />
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
 
-        <TextView
-            android:id="@+id/labelRilModel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/label_ril_model"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textImei" />
+            <Button
+                android:id="@+id/btnRequestRoot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?attr/materialButtonOutlinedStyle"
+                android:text="@string/request_root"
+                android:textColor="@color/primary" />
 
-        <TextView
-            android:id="@+id/textRilModel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="monospace"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:background="@android:drawable/edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelRilModel" />
-
-        <Button
-            android:id="@+id/btnRequestRoot"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/request_root"
-            style="?attr/materialButtonOutlinedStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textRilModel" />
-
-        <Button
-            android:id="@+id/btnChangeAll"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/change_all"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnRequestRoot" />
+            <Button
+                android:id="@+id/btnChangeAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/change_all"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnChangeAll" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textStatus"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:visibility="gone"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress" />
+            android:textSize="13sp"
+            android:textColor="@color/success" />
 
         <TextView
             android:id="@+id/labelLog"
@@ -248,25 +285,22 @@
             android:layout_marginTop="20dp"
             android:text="@string/log_title"
             android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textStatus" />
+            android:textColor="@color/text_secondary"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textLog"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:minHeight="100dp"
+            android:minHeight="120dp"
             android:fontFamily="monospace"
-            android:textSize="11sp"
-            android:padding="10dp"
+            android:textSize="10sp"
+            android:padding="12dp"
             android:background="@color/log_bg"
+            android:textColor="@color/text_primary"
             android:gravity="top|start"
-            android:scrollbars="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelLog" />
+            android:scrollbars="vertical" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>
