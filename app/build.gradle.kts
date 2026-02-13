@@ -9,8 +9,8 @@ android {
         applicationId = "com.deviceid.changer"
         minSdk = 24
         targetSdk = 34
-        versionCode = 125
-        versionName = "1.2.5"
+        versionCode = 126
+        versionName = "1.2.6"
     }
     buildTypes {
         release {
@@ -39,6 +39,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }
+
 
 
 
