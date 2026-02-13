@@ -9,8 +9,8 @@ android {
         applicationId = "com.deviceid.changer"
         minSdk = 24
         targetSdk = 34
-        versionCode = 127
-        versionName = "1.2.7"
+        versionCode = 128
+        versionName = "1.2.8"
     }
     buildTypes {
         release {
@@ -38,7 +38,11 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
+
+
+
 
 
 
