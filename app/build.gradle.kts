@@ -1,4 +1,4 @@
-plugins {
+﻿plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
@@ -9,13 +9,11 @@ android {
         applicationId = "com.deviceid.changer"
         minSdk = 24
         targetSdk = 34
-        versionCode = 7
-        versionName = "1.7"
-        buildConfigField("String", "LOG_SERVER_URL", "\"${project.findProperty("LOG_SERVER_URL") ?: "http://10.0.2.2:3000"}\"")
+        versionCode = 125
+        versionName = "1.2.5"
     }
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -41,3 +39,27 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
