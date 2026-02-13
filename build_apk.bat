@@ -121,7 +121,7 @@ if errorlevel 1 (
     echo  Alternativ: GitHub-da release-i elle yaradib APK yukleyin.
 ) else (
     echo  GitHub release: v!VER! ^(PND v!VER!^)...
-    gh release create "v!VER!" "apk\PND-release-unsigned.apk" --title "PND v!VER!" --notes "Release v!VER!" 2>nul
+    gh release create "v!VER!" "apk\PND-debug.apk" --title "PND v!VER!" --notes "Release v!VER!" 2>nul
     if errorlevel 1 (
         echo  XETA: gh release create ugursuz. gh auth login ile daxil olun.
     ) else (
