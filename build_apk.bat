@@ -97,30 +97,38 @@ echo  Debug:   apk\PND-debug.apk
 echo  Tag: v!VER!
 echo.
 
-set "GITHUB_REL="
-set /p "GITHUB_REL=GitHub release ac + APK yukle + push? (y/n): "
-if /i "!GITHUB_REL!"=="y" (
-    echo.
-    echo  Git add + commit...
-    git add app\build.gradle.kts 2>nul
-    git add set_version.ps1 build_apk.bat 2>nul
-    git status
-    git commit -m "Release v!VER!" 2>nul
-    if errorlevel 1 (
-        echo  Commit atlandi veya hec bir degisiklik yoxdur.
-    ) else (
-        echo  Push...
-        git push
-    )
-    echo.
+set "DO_GH="
+set /p "DO_GH=GitHub release ac + APK yukle + push? (y/n): "
+if /i not "!DO_GH!"=="y" goto :skip_github
+
+echo.
+echo  Git add + commit...
+git add app\build.gradle.kts 2>nul
+git add set_version.ps1 build_apk.bat 2>nul
+git status
+git commit -m "Release v!VER!" 2>nul
+if errorlevel 1 (
+    echo  Commit atlandi veya hec bir degisiklik yoxdur.
+) else (
+    echo  Push...
+    git push
+)
+
+echo.
+where gh >nul 2>nul
+if errorlevel 1 (
+    echo  XETA: GitHub CLI ^(gh^) tapilmadi. Quraşdirmag: https://cli.github.com/
+    echo  Alternativ: GitHub-da release-i elle yaradib APK yukleyin.
+) else (
     echo  GitHub release: v!VER! ^(PND v!VER!^)...
     gh release create "v!VER!" "apk\PND-release-unsigned.apk" --title "PND v!VER!" --notes "Release v!VER!" 2>nul
     if errorlevel 1 (
-        echo  XETA: gh release create ugursuz. GitHub CLI ^(gh^) quraşdırılıb ve gh auth login ile daxil olun.
+        echo  XETA: gh release create ugursuz. gh auth login ile daxil olun.
     ) else (
         echo  GitHub release yaradildi: v!VER!
     )
 )
 
+:skip_github
 echo.
 pause
